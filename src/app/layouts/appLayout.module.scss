@@ -1,0 +1,31 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/layout';
+@use '@carbon/colors';
+@use "./overrides.scss";
+
+.header_subscription {
+  background: #14AE5C;
+  color: white;
+  min-height: 70%;
+  max-height: 80%;
+  margin: auto 0rem;
+  display: flex;
+  align-items: center;
+
+  & span {
+    font-weight: 600;
+  }
+
+  @media screen and (max-width: 672px) {
+   display: none;
+  }
+}
+
+.cds--side-nav__link-text {
+ font-weight: 400;
+}
+
+
+
+

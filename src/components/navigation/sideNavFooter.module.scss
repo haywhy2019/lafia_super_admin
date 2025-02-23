@@ -1,0 +1,54 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/layout';
+@use '@carbon/colors';
+
+
+.side_nav_footer_container {
+  margin: $spacing-05;
+  padding: $spacing-05;
+  border: 1px solid #EBEBEB;
+}
+
+.side_nav_profile_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  
+  &:focus {
+    outline: colors.$blue-50 solid 2px;
+  }
+
+  .side_nav_profile {
+    display: flex;
+    align-items: center;
+    gap: $spacing-03;
+
+    span {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #E0FFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include type-style('heading-02');
+      font-size: 0.875rem
+
+
+    }
+
+    h3{
+      @include type-style('heading-02');
+      font-size: 0.875rem
+    }
+
+    p {
+      @include type-style('body-01');
+      font-size: 0.875rem;
+      text-transform: capitalize;
+    }
+  }
+
+}
