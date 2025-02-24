@@ -1,7 +1,9 @@
 /* eslint-disable */
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
+
 import { authRoutes } from "@/helpers/routes"
+
 import { getRedirectUrl } from "./helpers/utils"
 import { User } from "./types/general"
 
@@ -15,21 +17,16 @@ const getJsonParsedCookie = (req: NextRequest, key: string) => {
 }
 
 export async function middleware(request: NextRequest) {
-
    const url = request.nextUrl
    const pathname = url.pathname
 
    console.log(url, "url")
-   const authPages = [
-      authRoutes.login, 
-    
-   ]
+   const authPages = [authRoutes.login]
 
    const isAuthPage = authPages.some((page) => pathname.startsWith(page))
 
    const token = getJsonParsedCookie(request, "token") as string
    const user = getJsonParsedCookie(request, "user") as User
-
 
    //Redirect user if logged in & not trying to authenticate a sub-application
    if (pathname === authRoutes.login && user) {
@@ -44,7 +41,7 @@ export async function middleware(request: NextRequest) {
    }
 
    // Redirect to email verifiy page if email is not verified
-   
+
    // Redirect to dashboard if user is already logged in
    if (token && isAuthPage) {
       const url = new URL(getRedirectUrl(user)!, request.url)
@@ -57,6 +54,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
    matcher: [
-      "/login",
+      // "/login",
    ],
 }
