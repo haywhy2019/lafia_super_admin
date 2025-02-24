@@ -9,7 +9,7 @@ type Crumbs = {
 function BreadCrumbs({ pages }: Crumbs) {
    return (
       <Breadcrumb noTrailingSlash>
-         {pages.map((item,index) => (
+         {pages.map((item, index) => (
             <BreadcrumbItem isCurrentPage={index == pages.length - 1} key={index}>
                <a href={item.href}>{item.title}</a>
             </BreadcrumbItem>

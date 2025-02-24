@@ -1,8 +1,11 @@
 import { Link as CarbonLink, Column } from "@carbon/react"
+
 import React from "react"
-import styles from "./app_card.module.scss"
+
 import { User } from "@/types/general"
 import { ProductType } from "@/types/product.types"
+
+import styles from "./app_card.module.scss"
 
 type Props = Partial<ProductType> & {
    name: string
@@ -15,7 +18,6 @@ type Props = Partial<ProductType> & {
 const AppCard: React.FC<Props> = ({ ...props }) => {
    return (
       <Column
-        
          xlg={4}
          lg={8}
          md={4}

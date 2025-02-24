@@ -1,3 +1,5 @@
+import { authSelector, logout } from "@/redux/features/auth.slice"
+import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { Button, Stack } from "@carbon/react"
 import { ArrowRight, Logout } from "@carbon/react/icons"
 
@@ -5,12 +7,10 @@ import React from "react"
 
 import { useRouter } from "next/navigation"
 
+import { appRoutes } from "@/helpers/routes"
+import { convertToLowerCase, getFirstTwoInitials, truncateText } from "@/helpers/utils"
 
 import styles from "./sideNavFooter.module.scss"
-import { getFirstTwoInitials, truncateText, convertToLowerCase } from "@/helpers/utils"
-import { appRoutes } from "@/helpers/routes"
-import { authSelector, logout } from "@/redux/features/auth.slice"
-import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 
 const SideNavFooter = () => {
    const router = useRouter()

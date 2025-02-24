@@ -48,10 +48,10 @@ const OrganisationTable: React.FC<Props> = ({
    setPageSize,
    totalOrganisations,
 }) => {
-   const [inviteModal, setInviteModal] = React.useState(false)
+   const [inviteModal, setInviteModal] = React.useState(false) //eslint-disable-line
 
    const openInviteStaffModal = () => setInviteModal(true)
-   const closeInviteStaffModal = () => setInviteModal(false)
+   // const closeInviteStaffModal = () => setInviteModal(false)
 
    const headers = [
       { header: "Last Active", key: "last_active" },
@@ -140,6 +140,7 @@ const OrganisationTable: React.FC<Props> = ({
                                  {...getHeaderProps({
                                     header,
                                  })}
+                                 key={header.key}
                               >
                                  {header.header}
                               </TableHeader>
@@ -153,6 +154,7 @@ const OrganisationTable: React.FC<Props> = ({
                               {...getRowProps({
                                  row,
                               })}
+                              key={row.id}
                            >
                               {row.cells.map((cell) => (
                                  <TableCell key={cell.id}>{cell.value}</TableCell>

@@ -1,4 +1,6 @@
 /** @format */
+
+/* eslint-disable */
 import { AxiosResponse } from "axios"
 
 import { privateInstance } from "./instance.api"
