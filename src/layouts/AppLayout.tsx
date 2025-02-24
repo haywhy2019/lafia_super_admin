@@ -1,6 +1,8 @@
 "use client"
 
 import { useWindowSize } from "@/hooks/useWindowSize"
+import { initializeUser } from "@/redux/features/auth.slice"
+import { useAppDispatch } from "@/redux/hooks"
 import {
    Content,
    Header,
@@ -31,6 +33,11 @@ import styles from "./appLayout.module.scss"
 const AppLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
    const { isDesktop } = useWindowSize()
    const pathname = usePathname()
+   const dispatch = useAppDispatch()
+
+   React.useEffect(() => {
+      dispatch(initializeUser())
+   }, [dispatch])
 
    return (
       <>

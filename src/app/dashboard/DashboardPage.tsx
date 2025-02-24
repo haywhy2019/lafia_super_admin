@@ -1,11 +1,10 @@
 "use client"
+
 import React from "react"
+
 import styles from "./dashboard.module.scss"
 
-
 const DashboardPage = () => {
-
-
    return (
       <>
          {/* <PageHeader
@@ -15,8 +14,7 @@ const DashboardPage = () => {
          /> */}
 
          <section className={styles.container}>
-          
-              <h1>dashboard</h1>
+            <h1>dashboard</h1>
          </section>
       </>
    )
