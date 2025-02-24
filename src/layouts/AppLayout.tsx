@@ -13,38 +13,25 @@ import {
   SideNavLink,
   SkipToContent,
 } from "@carbon/react";
-import { Notification, Switcher } from "@carbon/react/icons";
+import { Notification } from "@carbon/react/icons";
 
 import React from "react";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import SideNavFooter from "../../components/navigation/SideNavFooter";
-
-import { useWindowSize } from "../../hooks/useWindowSize";
-import SwitcherMenu from "./SwitcherMenu";
 import styles from "./appLayout.module.scss";
 import Logo from "@/components/Logo";
 import { navLinks } from "@/helpers/constants";
+import SideNavFooter from "@/components/navigation/SideNavFooter";
+import { useWindowSize } from "@/hooks/useWindowSize";
 
 const AppLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
-  const [menuOpen, setMenuOpen] = React.useState(false);
-
-  const { isDesktop, isMobile } = useWindowSize();
+  const { isDesktop } = useWindowSize();
   const pathname = usePathname();
-
-  const toggleMenu = () => {
-    setMenuOpen((prevState: boolean) => !prevState);
-  };
 
   return (
     <>
-      {/* displays on desktop */}
-      <div style={isMobile ? { display: "none" } : {}}>
-        <SwitcherMenu menuOpen={menuOpen} />
-      </div>
-      {/* // */}
       <HeaderContainer
         render={({
           isSideNavExpanded,
@@ -55,11 +42,6 @@ const AppLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         }) => (
           <>
             <Header aria-label="Carbon Tutorial">
-              {/* displays on mobile */}
-              <div style={isDesktop ? { display: "none" } : {}}>
-                <SwitcherMenu menuOpen={menuOpen} />
-              </div>
-              {/* // */}
               <SkipToContent />
               <HeaderMenuButton
                 aria-label={isSideNavExpanded ? "Close menu" : "Open menu"}
@@ -67,13 +49,6 @@ const AppLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
                 onClick={onClickSideNavExpand}
                 isActive={isSideNavExpanded}
               />
-              <HeaderGlobalAction
-                aria-label="App Switcher"
-                tooltipAlignment="end"
-                onClick={toggleMenu}
-              >
-                <Switcher size={20} />
-              </HeaderGlobalAction>
 
               <Link href="/" passHref legacyBehavior>
                 <HeaderName prefix="">
@@ -108,11 +83,7 @@ const AppLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
               </SideNav>
 
               <HeaderGlobalBar style={{ gap: "0.5rem", paddingRight: "1rem" }}>
-                <HeaderGlobalAction
-                  aria-label="Notifications"
-                  tooltipAlignment="center"
-                  className="action-icons"
-                >
+                <HeaderGlobalAction aria-label="Notifications" tooltipAlignment="center" className="action-icons">
                   <Notification size={20} />
                 </HeaderGlobalAction>
               </HeaderGlobalBar>
@@ -138,9 +109,7 @@ const AppLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
                   isActive={pathname.includes(href)}
                   className={styles.side_nav_text}
                   style={{
-                    backgroundColor: pathname.includes(href)
-                      ? "#E1EBFF"
-                      : "transparent",
+                    backgroundColor: pathname.includes(href) ? "#E1EBFF" : "transparent",
                     color: pathname.includes(href) ? "#0F62FE" : "black",
                   }}
                 >
