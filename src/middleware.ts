@@ -15,9 +15,11 @@ const getJsonParsedCookie = (req: NextRequest, key: string) => {
 }
 
 export async function middleware(request: NextRequest) {
+
    const url = request.nextUrl
    const pathname = url.pathname
 
+   console.log(url, "url")
    const authPages = [
       authRoutes.login, 
     

@@ -1,0 +1,45 @@
+@use "@carbon/react/scss/spacing" as *;
+@use "@carbon/react/scss/type" as *;
+@use "@carbon/layout";
+@use "@carbon/colors";
+@use "@carbon/themes";
+
+.container{
+    width: 9rem;
+    height: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: $spacing-03;
+   
+}
+.number{
+    @include type-style("heading-03");
+    font-weight: bold;
+}
+
+.status{
+    @include type-style("helper-text-02");
+    font-size: 10px;
+    font-weight: bold;
+    color: #808080;
+
+}
+
+.stats{
+    @include type-style("helper-text-01");
+    font-size: 10px;
+    color: black;
+    margin-left: $spacing-01;
+}
+
+.flex{
+    display: flex;
+    align-items: baseline;
+    gap: $spacing-01
+}
+
+.stats_container{
+background-color: #FAFAFA;
+padding: $spacing-01;
+}

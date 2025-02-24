@@ -1,9 +1,5 @@
 import { Link as CarbonLink, Column } from "@carbon/react"
-
 import React from "react"
-
-
-
 import styles from "./app_card.module.scss"
 import { User } from "@/types/general"
 import { ProductType } from "@/types/product.types"
@@ -17,16 +13,9 @@ type Props = Partial<ProductType> & {
 }
 
 const AppCard: React.FC<Props> = ({ ...props }) => {
-   const isKycCompleted = props?.user?.kycComplete
-
    return (
       <Column
-         as={isKycCompleted ? "a" : "div"}
-         {...(isKycCompleted && {
-            href: props.comingSoon
-               ? "#"
-               : `${process.env.NEXT_PUBLIC_AUTH_APP}/login?prompt=${props.name}&continue=${props.url}`,
-         })}
+        
          xlg={4}
          lg={8}
          md={4}
@@ -34,7 +23,6 @@ const AppCard: React.FC<Props> = ({ ...props }) => {
          className={styles.app_card_container}
          role="button"
          tabIndex={0}
-         style={{ opacity: isKycCompleted ? 1 : 0.4 }}
       >
          <div className={styles.app_card_header}>
             <span />
