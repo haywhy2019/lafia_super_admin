@@ -13,65 +13,30 @@ import {
   SideNavLink,
   SkipToContent,
 } from "@carbon/react";
-import { Notification, Switcher, UserFollow } from "@carbon/react/icons";
-import { useQuery } from "@tanstack/react-query";
+import { Notification, Switcher } from "@carbon/react/icons";
 
 import React from "react";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import authApi from "../../axios/auth.api";
 import SideNavFooter from "../../components/navigation/SideNavFooter";
 
 import { useWindowSize } from "../../hooks/useWindowSize";
-import { authSelector, setUser } from "../../redux/features/auth.slice";
 import SwitcherMenu from "./SwitcherMenu";
 import styles from "./appLayout.module.scss";
 import Logo from "@/components/Logo";
-import { queryKeys, navLinks } from "@/helpers/constants";
-import { useAppDispatch } from "@/redux/hooks";
-
+import { navLinks } from "@/helpers/constants";
 
 const AppLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const [menuOpen, setMenuOpen] = React.useState(false);
-  const [inviteModal, setInviteModal] = React.useState(false);
-
-//   const user = useAppSelector(authSelector)?.user;
-//   const isUserInitialised = useAppSelector(authSelector)?.isUserInitialised;
 
   const { isDesktop, isMobile } = useWindowSize();
   const pathname = usePathname();
-  const dispatch = useAppDispatch();
-
-//   const { data, isSuccess } = useQuery({
-//     queryKey: [queryKeys.fetchUser],
-//     queryFn: () => authApi.getUser(user?.id).then((res) => res.data.data),
-//     enabled: !!isUserInitialised && !!user?.id,
-//   });
-
-//   React.useEffect(() => {
-//     if (isSuccess) {
-//       const userPayload = {
-//         ...data,
-//         role: { ...data.role, permissions: [] }, //remove permissions from payload to declutter the user object before browser storage
-//       };
-
-//       dispatch(setUser(userPayload));
-//     }
-//   }, [isSuccess]);
-
-  React.useEffect(() => {
-    // dispatch(initializeUser())
-  }, [dispatch]);
-
-
 
   const toggleMenu = () => {
     setMenuOpen((prevState: boolean) => !prevState);
   };
-
-//   const actualNavLinks = navLinks?.filter((link) => link.show !== false);
 
   return (
     <>
@@ -150,17 +115,6 @@ const AppLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
                 >
                   <Notification size={20} />
                 </HeaderGlobalAction>
-
-                {/* {user.kycComplete && (
-                  <HeaderGlobalAction
-                    aria-label="Invite Staff"
-                    tooltipAlignment="center"
-                    className="action-icons"
-                    onClick={openInviteStaffModal}
-                  >
-                    <UserFollow size={20} />
-                  </HeaderGlobalAction>
-                )} */}
               </HeaderGlobalBar>
             </Header>
           </>
@@ -183,6 +137,12 @@ const AppLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
                   large
                   isActive={pathname.includes(href)}
                   className={styles.side_nav_text}
+                  style={{
+                    backgroundColor: pathname.includes(href)
+                      ? "#E1EBFF"
+                      : "transparent",
+                    color: pathname.includes(href) ? "#0F62FE" : "black",
+                  }}
                 >
                   {name}
                 </SideNavLink>

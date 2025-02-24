@@ -1,7 +1,6 @@
 import { User } from "@/types/general"
 import dayjs from "dayjs"
 import jwt, { JwtPayload } from  "jsonwebtoken"
-import { userTypes } from "./enum"
 
 /**
  * Verifies a JWT token stored in cookies.
@@ -33,7 +32,7 @@ export const getFirstTwoInitials = (name: string) => {
    const initials = []
    for (let i = 0; i < nameParts.length; i++) {
       if (nameParts[i]) {
-         initials.push(nameParts!?.[i]!?.[0]!?.toUpperCase())
+         initials.push(nameParts?.[i]?.[0]?.toUpperCase())
       }
    }
    return initials.slice(0, 2).join("")
@@ -58,15 +57,10 @@ export const formatDate = (date: string | Date, format: string = "D MMM, YYYY"):
  * @param  user - The user object to determine the redirect URL for
  * @return  The URL to redirect to
  */
-export const getRedirectUrl = ({ userType, status }: User) => {
-   console.log(userType< "users")
-    // Redirect based on user type
-    switch (userType) {
-       case userTypes.ORGANIZATION:
-          return `/dashboard`
-       case userTypes.STAFF:
-          return `/dashboard`
-       default: 
+// export const getRedirectUrl = ({ userType }: User) => {
+
+export const getRedirectUrl = ({ userType }: User) => {
+    if(userType) return '/dashboard'
        return "/dashboard"
     }
- }
+ 

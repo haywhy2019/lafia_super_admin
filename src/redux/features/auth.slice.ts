@@ -29,6 +29,7 @@ export const authSlice = createSlice({
          Cookies.set("X-TenantID", payload.user.tenantId, cookieConfig)
       },
       logout: (state) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
          state.user = null as any
          Cookies.remove("token", cookieConfig)
          Cookies.remove("user", cookieConfig)

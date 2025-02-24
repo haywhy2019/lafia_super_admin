@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-// import "./globals.scss"
-import AppProvider from "@/app/layouts/AppProvider";
 import AppLayout from "@/app/layouts/AppLayout";
 export const metadata: Metadata = {
   title: "LafiaEMR Super admin",
@@ -12,13 +10,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body>
-      <AppLayout>
-        {children}
-      </AppLayout>
-      </body>
-    </html>
-  );
+  return <AppLayout>{children}</AppLayout>;
 }
