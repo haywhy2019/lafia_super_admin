@@ -1,8 +1,16 @@
-import React from 'react'
-import OrganisationsPage from './OrganisationsPage'
+import React from "react"
 
-export default function page() {
-  return (
-  <OrganisationsPage/>
-  )
+import { Metadata } from "next"
+
+import OrganisationListPage from "./OrganisationListPage"
+
+export const metadata: Metadata = {
+   title: "LafiaEMR - Organisations",
+   description: "",
 }
+
+const Organisations = () => {
+   return <OrganisationListPage />
+}
+
+export default Organisations

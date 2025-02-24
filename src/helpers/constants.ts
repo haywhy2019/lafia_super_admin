@@ -57,4 +57,5 @@ export const queryKeys = {
    fetchKyc: "fetchKyc",
    fetchProducts: "fetchProducts",
    fetchUser: "fetchUser",
+   fetchOrganisations: "fetchOrganisations",
 }
