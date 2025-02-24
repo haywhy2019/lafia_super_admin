@@ -1,17 +1,12 @@
+import app from "@/redux/features/auth.slice"
+import auth from "@/redux/features/auth.slice"
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import { persistReducer, persistStore } from "redux-persist"
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from "redux-persist"
 import storage from "redux-persist/lib/storage"
-import app from "@/redux/features/auth.slice"
-import auth from "@/redux/features/auth.slice"
-
-
 
 // Combine reducers
-const rootReducer = combineReducers({
-    app,
-   auth,
-})
+const rootReducer = combineReducers({ app, auth })
 
 // Persist configuration
 const persistConfig = {

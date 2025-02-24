@@ -1,0 +1,101 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/layout';
+@use '@carbon/colors';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: $spacing-07;
+}
+
+.profile_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $spacing-05;
+
+  @media screen and (max-width: 640px) {
+    flex-direction: column;
+    align-items: start;
+   }
+}
+
+.button_set {
+  display: flex;
+  align-items: center;
+  gap: $spacing-05;
+  flex-wrap: wrap;
+}
+
+.profile_title {
+  @include type-style('heading-03');
+  font-weight: bold;
+  font-size: 1.75rem;
+}
+
+.profile_subTitle {
+  @include type-style('body-01');
+}
+
+.profile_picture_container {
+  margin-bottom: $spacing-07;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  & p {
+    color: colors.$blue-50;
+    @include type-style('body-01');
+    font-weight: 600;
+    cursor: pointer;
+
+    &:focus {
+      outline: colors.$blue-50 solid 2px;
+    }
+  }
+}
+
+.profile_picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 1.5px dashed #C6C6C6;
+  background: #F4F4F4;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal_heading{
+  @include type-style('heading-03');
+  font-weight: 600;
+}
+
+.modal_body{
+  @include type-style("helper-text-02");
+}
+
+.modal_heading_center{
+  @include type-style('heading-03');
+  font-weight: 600;
+  text-align: center
+}
+
+.modal_body_center{
+  @include type-style("helper-text-02");
+  text-align: center;
+}
+.text_input{
+  padding: $spacing-05 0;
+ 
+}
+
+
+
+

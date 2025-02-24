@@ -1,34 +1,103 @@
 @use '@carbon/react';
 @use '@carbon/type';
-@use '@carbon/styles';
-
-@use '@carbon/react/scss/breakpoint' as *;
-// @use '@app/auth/onboarding/demo/_landing-page';
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/colors';
 
 
 /// Remove overrides once Carbon bugs are fixed upstream.
 /// Need grid option to not add page gutters at large viewports, to also use when nesting grids
 /// @link https://github.com/carbon-design-system/carbon/issues/2792
 @media (min-width: 42rem) {
-    .cds--grid--no-gutter {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
+  .cds--grid--no-gutter {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
-  
-  /// Padding was introduced in 10.3.0, needs an option to let grid set the viewport gutter
-  /// @link https://github.com/carbon-design-system/carbon/issues/3010
-  .cds--content {
-    margin-top: 3rem;
-    padding: 0;
-    //  background: var(--cds-background);
-  }
-  
-  .cds--content .cds--css-grid {
-    max-width: 100%;
-    @include breakpoint(md) {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-  }
-  
+}
+
+/// Padding was introduced in 10.3.0, needs an option to let grid set the viewport gutter
+/// @link https://github.com/carbon-design-system/carbon/issues/3010
+.cds--content {
+  padding: 0rem;
+  background: #fafafa;
+}
+
+.cds--css-grid-column {
+  margin: 0
+}
+
+.cds--css-grid {
+  margin: 0;
+  padding: 0;
+}
+
+.cds--tabs.cds--tabs--vertical {
+  background: #fafafa;
+  position: sticky;
+  height: max-content;
+}
+
+.cds--tabs--contained ~ .cds--tab-content {
+  background: #fafafa;
+}
+
+.cds--tab-content--interactive {
+  padding: 0px 0px 0px 24px;
+}
+
+.cds--tabs.cds--tabs--vertical .cds--tabs__nav-item {
+  background: #fafafa;
+}
+
+.cds--side-nav__link-text {
+  font-weight: 400;
+}
+
+.cds--side-nav__link > .cds--side-nav__icon {
+  margin-right: $spacing-03;
+}
+
+.cds--side-nav__link--current {
+  background-color: #E1EBFF !important;
+}
+.cds--side-nav__link--current .cds--side-nav__link-text {
+  color: colors.$blue-50 !important;
+}
+.cds--side-nav__link--current .cds--side-nav__icon {
+  fill: colors.$blue-50 !important;
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.cds--select-input {
+  background-color: white !important;
+  border: none !important
+}
+
+
+// input[type="number"] {
+//   appearance: none; /* Standardized */
+//   -webkit-appearance: none; /* For WebKit browsers */
+//   -moz-appearance: none; /* For Firefox */
+// }
+
+// .cds--content .cds--css-grid {
+//   max-width: 100%;
+//   @include breakpoint(md) {
+//     padding-left: 20px;
+//     padding-right: 20px;
+//   }
+// }
+
+
+
+

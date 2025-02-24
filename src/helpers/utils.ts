@@ -1,6 +1,8 @@
-import { User } from "@/types/general"
+/* eslint-disable */
 import dayjs from "dayjs"
-import jwt, { JwtPayload } from  "jsonwebtoken"
+import jwt, { JwtPayload } from "jsonwebtoken"
+
+import { User } from "@/types/general"
 
 /**
  * Verifies a JWT token stored in cookies.
@@ -60,7 +62,6 @@ export const formatDate = (date: string | Date, format: string = "D MMM, YYYY"):
 // export const getRedirectUrl = ({ userType }: User) => {
 
 export const getRedirectUrl = ({ userType }: User) => {
-    if(userType) return '/dashboard'
-       return "/dashboard"
-    }
- 
+   if (userType) return "/dashboard"
+   return "/dashboard"
+}
