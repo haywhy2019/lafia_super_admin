@@ -28,15 +28,6 @@ export const authSlice = createSlice({
          if (payload.token) Cookies.set("token", JSON.stringify(payload.token), cookieConfig)
          Cookies.set("user", JSON.stringify(payload.user), cookieConfig)
       },
-      initializeUser: (state) => {
-         if (typeof window === "undefined") {
-            return
-         }
-         if (Cookies.get("user")) {
-            state.user = JSON.parse(Cookies.get("user") || "")
-         }
-         // state.isUserInitialised = true
-      },
       logout: (state) => {
          state.user = null as any
          Cookies.remove("token", cookieConfig)
@@ -48,6 +39,6 @@ export const authSlice = createSlice({
 
 export const authSelector = (state: RootState) => state.auth
 
-export const { setUser, setAuth, initializeUser, logout } = authSlice.actions
+export const { setUser, setAuth, logout } = authSlice.actions
 
 export default authSlice.reducer
