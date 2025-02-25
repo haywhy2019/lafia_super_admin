@@ -9,8 +9,6 @@ import { PersistGate } from "redux-persist/integration/react"
 
 import React from "react"
 
-import AppLayout from "./AppLayout"
-
 const AppProvider = ({
    children,
 }: Readonly<{
@@ -28,7 +26,7 @@ const AppProvider = ({
                   position="top-center"
                   hideProgressBar
                />
-               <AppLayout> {children}</AppLayout>
+               {children}
             </QueryClientProvider>
          </PersistGate>
       </Provider>
