@@ -1,0 +1,62 @@
+@use "@carbon/react/scss/spacing" as *;
+@use "@carbon/react/scss/type" as *;
+@use "@carbon/layout";
+@use "@carbon/colors";
+@use "@carbon/themes";
+
+.form_flex {
+   display: flex;
+   gap: $spacing-04;
+   margin-bottom: $spacing-03;
+
+  @media screen and (max-width: 768px) {
+flex-direction: column;
+   
+  }
+}
+
+.form_container {
+   margin-inline: 0;
+}
+
+.tab_padding {
+   padding: $spacing-04 0;
+}
+
+.profile_btn_container {
+   display: flex;
+   justify-content: flex-end;
+   @media screen and (max-width: 768px) {
+      flex-direction: column; 
+        }
+   
+}
+.profile_btn {
+   min-width: 10rem;
+   @media screen and (max-width: 768px) {
+      min-width: 100%;
+      margin: $spacing-02 0;
+        }
+}
+
+.dateBtn {
+   display: flex;
+   gap: $spacing-03;
+   margin: $spacing-05 ;
+   padding: $spacing-03;
+   width: 11rem;
+   border: 1px solid #dcdee6;
+   border-radius: $spacing-01;
+
+   & p {
+      @include type-style("helper-text-02");
+   }
+}
+
+.activity_container {
+   background-color: white;
+   padding: $spacing-05 0;
+   padding-left: $spacing-05;
+}
+
+
