@@ -1,0 +1,65 @@
+@use "@carbon/react/scss/spacing" as *;
+@use "@carbon/react/scss/type" as *;
+
+
+.container {
+    border-bottom: 1px dashed #CCCCCC;
+}
+.container_bg {
+    padding: $spacing-04 ;
+    background-color: #EBEBEB;
+    border: 1px dashed #CCCCCC;
+}
+
+.icon {
+    
+    display: flex;
+    gap: $spacing-02;
+    align-items: center;
+        p {
+            @include type-style("label-02");
+            font-size: 0.7rem;
+            color: #0F62FE
+         }
+}
+
+.flex_between{
+    display: flex;
+    justify-content: space-between;
+    gap: $spacing-01
+
+}
+
+.title {
+    @include type-style("label-02");
+    font-size: 0.8rem;
+    color: #808080
+
+}
+
+.name {
+    @include type-style("label-02");
+    font-size: 0.8rem;
+    color: black;
+}
+
+.flex_start{
+    display: flex;
+    gap: $spacing-03;
+    align-items: center;
+    padding: $spacing-03 0;
+}
+
+.approve_text {
+    @include type-style("label-02");
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #24A148
+}
+
+.deny_text {
+    @include type-style("label-02");
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #DA1E28;
+}

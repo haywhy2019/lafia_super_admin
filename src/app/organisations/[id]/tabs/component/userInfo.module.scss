@@ -1,0 +1,16 @@
+@use "@carbon/react/scss/spacing" as *;
+@use "@carbon/react/scss/type" as *;
+
+.userInfoContainer {
+   display: flex;
+   justify-content: space-between;
+   padding: $spacing-04 0;
+
+   span {
+      display: flex;
+   }
+
+   p {
+      @include type-style("label-02");
+   }
+}

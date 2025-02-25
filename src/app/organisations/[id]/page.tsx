@@ -9,8 +9,15 @@ export const metadata: Metadata = {
    description: "",
 }
 
-const SingleOrganisation = () => {
-   return <SingleOrganisationPage />
+type OrganisationProps = {
+   params: {
+      id: string
+   }
+}
+
+
+const SingleOrganisation = ({params}:OrganisationProps) => {
+   return <SingleOrganisationPage id={params.id}/>
 }
 
 export default SingleOrganisation
