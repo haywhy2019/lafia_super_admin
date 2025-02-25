@@ -10,7 +10,7 @@ function UserInfo({ label, info, icon }: { label: string; info: string; icon: bo
          <p>{label}</p>
          {icon ? (
             <span className={style.text_icon_container}>
-               <p style=    {{marginRight: "0.5rem"}}>{info}</p>
+               <p style={{ marginRight: "0.5rem" }}>{info}</p>
                <Copy size={15} fill="#0F62FE" />
             </span>
          ) : (

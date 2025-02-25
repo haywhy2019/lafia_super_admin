@@ -16,11 +16,12 @@ import { authRoutes } from "@/helpers/routes"
 
 import styles from "../auth.module.scss"
 import { forgotPasswordSchema } from "../auth.validators"
-import VerifyEmailModal from "../components/VerifyEmailModal"
+
+// import VerifyEmailModal from "../components/VerifyEmailModal"
 
 const ForgotPasswordForm = () => {
    const [message, setMessage] = React.useState("")
-   const [open, setOpen] = React.useState(false)
+   // const [open, setOpen] = React.useState(false)
 
    const {
       mutate: _forgotPassword,
@@ -112,7 +113,7 @@ const ForgotPasswordForm = () => {
             </Link>
          </p>
 
-         <VerifyEmailModal open={open} setOpen={setOpen} data-testId="forgot-password-modal" />
+         {/* <VerifyEmailModal open={open} setOpen={setOpen} data-testId="forgot-password-modal" /> */}
       </>
    )
 }

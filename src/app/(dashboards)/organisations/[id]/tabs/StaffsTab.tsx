@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react"
 
 function StaffsTab() {
-  return (
-    <div>StaffsTab</div>
-  )
+   return <div>StaffsTab</div>
 }
 
 export default StaffsTab
