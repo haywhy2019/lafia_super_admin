@@ -14,7 +14,7 @@ import PageHeader from "@/components/navigation/PageHeader"
 
 import { User } from "@/types/general"
 
-import { queryKeys } from "../../helpers/constants"
+import { queryKeys } from "../../../helpers/constants"
 import OrganisationTable from "./OrganisationTable"
 import styles from "./staff.module.scss"
 

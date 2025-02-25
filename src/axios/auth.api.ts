@@ -7,7 +7,10 @@ import { privateInstance, publicInstance } from "./instance.api"
 
 const authApi: authApiType = {
    login: async (payload) => await publicInstance.post("/auth/admin/login", payload),
-   lafiaHMSLogin: async () => await privateInstance.get("/services/auth/openmrs"),
+   forgotPassword: async (payload) =>
+      await publicInstance.patch("/auth/begin-reset-password", payload),
+   resetPassword: async (payload) =>
+      await publicInstance.patch(`/auth/reset-password?code=${payload.code}`, payload),
    getUser: async (id) => {
       return await privateInstance.get(`/user/findUserById/${id}`)
    },

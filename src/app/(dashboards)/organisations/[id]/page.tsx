@@ -15,9 +15,8 @@ type OrganisationProps = {
    }
 }
 
-
-const SingleOrganisation = ({params}:OrganisationProps) => {
-   return <SingleOrganisationPage id={params.id}/>
+const SingleOrganisation = ({ params }: OrganisationProps) => {
+   return <SingleOrganisationPage id={params.id} />
 }
 
 export default SingleOrganisation

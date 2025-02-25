@@ -2,20 +2,18 @@
 
 /* eslint-disable */
 import { AxiosResponse } from "axios"
+
 import { User } from "./general"
 
-
-
 export type authApiType = {
-   lafiaHMSLogin(): any
    login: (payload: LoginType) => Promise<AxiosResponse>
-//    lafiaHMSLogin: () => Promise<AxiosResponse>
-//    signup: (payload: SignupType) => Promise<AxiosResponse>
-//    verifyOtp: (payload: VerifyType) => Promise<AxiosResponse>
-//    resendOtp: (payload: { email: string }) => Promise<AxiosResponse>
-//    forgotPassword: (payload: { email: string }) => Promise<AxiosResponse>
-//    resetPassword: (payload: ResetPasswordType) => Promise<AxiosResponse>
-getUser: (id: number) => Promise<AxiosResponse>
+   //    lafiaHMSLogin: () => Promise<AxiosResponse>
+   //    signup: (payload: SignupType) => Promise<AxiosResponse>
+   //    verifyOtp: (payload: VerifyType) => Promise<AxiosResponse>
+   //    resendOtp: (payload: { email: string }) => Promise<AxiosResponse>
+   forgotPassword: (payload: { email: string }) => Promise<AxiosResponse>
+   resetPassword: (payload: ResetPasswordType) => Promise<AxiosResponse>
+   getUser: (id: number) => Promise<AxiosResponse>
 }
 
 export type LoginType = {

@@ -1,23 +1,21 @@
-import { authSelector, logout } from "@/redux/features/auth.slice"
-import { useAppDispatch, useAppSelector } from "@/redux/hooks"
+import { authSelector } from "@/redux/features/auth.slice"
+import { useAppSelector } from "@/redux/hooks"
 import { Button, Stack } from "@carbon/react"
 import { ArrowRight, Logout } from "@carbon/react/icons"
 
 import React from "react"
 
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 
-import { appRoutes } from "@/helpers/routes"
+import { appRoutes, authRoutes } from "@/helpers/routes"
 import { convertToLowerCase, getFirstTwoInitials, truncateText } from "@/helpers/utils"
 
 import styles from "./sideNavFooter.module.scss"
 
 const SideNavFooter = () => {
    const router = useRouter()
-   const dispatch = useAppDispatch()
    const user = useAppSelector(authSelector).user
-
-   const handleLogout = () => dispatch(logout())
 
    const name = user?.firstName || user?.organizationName
 
@@ -49,20 +47,21 @@ const SideNavFooter = () => {
             </div>
          </div>
 
-         <Button
-            size="md"
-            style={{
-               width: "100%",
-               background: "#FAFAFA",
-               color: "#DA1E28",
-               fontWeight: "bold",
-               position: "relative",
-            }}
-            onClick={handleLogout}
-         >
-            Logout
-            <Logout style={{ position: "absolute", right: "1rem" }} />
-         </Button>
+         <Link href={authRoutes.logout}>
+            <Button
+               size="md"
+               style={{
+                  width: "100%",
+                  background: "#FAFAFA",
+                  color: "#DA1E28",
+                  fontWeight: "bold",
+                  position: "relative",
+               }}
+            >
+               Logout
+               <Logout style={{ position: "absolute", right: "1rem" }} />
+            </Button>
+         </Link>
       </Stack>
    )
 }

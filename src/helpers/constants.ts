@@ -1,8 +1,5 @@
 /* eslint-disable */
-
-
 import {
-   Currency,
    DashboardReference,
    DataFormat,
    DevicesApps,
@@ -22,7 +19,7 @@ export const navLinks = [
    { name: "Dashboard", href: appRoutes.dashboard, icon: DashboardReference },
    { name: "Organisations", href: appRoutes.organisations, icon: UserMultiple },
    { name: "Products", href: appRoutes.products, icon: DevicesApps },
-   { name: "Payment", href: appRoutes.payments, icon: Money },
+   { name: "Payments", href: appRoutes.payments, icon: Money },
    { name: "Audit Logs", href: appRoutes.auditLogs, icon: DataFormat },
    { name: "Settings", href: appRoutes.settings, icon: Settings },
 ]

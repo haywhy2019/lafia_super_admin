@@ -24,9 +24,9 @@ import Link from "next/link"
 
 import { User } from "@/types/general"
 
-import { pageSizes } from "../../helpers/constants"
-import { appRoutes } from "../../helpers/routes"
-import { formatDate } from "../../helpers/utils"
+import { pageSizes } from "../../../helpers/constants"
+import { appRoutes } from "../../../helpers/routes"
+import { formatDate } from "../../../helpers/utils"
 import styles from "./staff.module.scss"
 
 type Props = {
