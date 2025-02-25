@@ -6,6 +6,8 @@ import React from "react"
 
 import BreadCrumbs from "@/components/breadCrumbs/BreadCrumbs"
 
+import { appRoutes } from "@/helpers/routes"
+
 import styles from "./organisationProfile.module.scss"
 import ActivityLogTab from "./tabs/ActivityLogTab"
 import ComplianceTab from "./tabs/ComplianceTab"
@@ -15,8 +17,8 @@ import StaffsTab from "./tabs/StaffsTab"
 const SingleOrganisationPage = ({ id }: { id: string }) => {
    console.log("test", id)
    const breadCrumbs = [
-      { title: "Organisations", href: "/organisation profile" },
-      { title: "Organisations", href: `/organisations/${id}` },
+      { title: "Organisations", href: appRoutes.organisations },
+      { title: "Organisation Profile", href: "" },
    ]
    return (
       <Grid style={{ padding: "1.5rem" }}>
@@ -24,7 +26,7 @@ const SingleOrganisationPage = ({ id }: { id: string }) => {
             <div>
                <BreadCrumbs pages={breadCrumbs} />
                <div className={styles.tab_padding}>
-                  <Tabs> 
+                  <Tabs>
                      <TabList aria-label="List of tabs" style={{}}>
                         <Tab className={""}>Compliance</Tab>
                         <Tab className={""}>Activity Log</Tab>
