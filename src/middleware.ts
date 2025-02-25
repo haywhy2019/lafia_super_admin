@@ -23,8 +23,8 @@ export async function middleware(request: NextRequest) {
 
    const isAuthPage = authPages.some((page) => pathname.startsWith(page))
 
-   const token = getJsonParsedCookie(request, "token") as string
-   const user = getJsonParsedCookie(request, "user") as User
+   const token = getJsonParsedCookie(request, "tk") as string
+   const user = getJsonParsedCookie(request, "us") as User
 
    //Redirect to login page if user tries to access / route
    if (pathname === "/") {

@@ -9,7 +9,6 @@ import { RootState } from "../store"
 
 const cookieConfig = {
    httpOnly: false,
-   domain: process.env.NEXT_PUBLIC_TL_DOMAIN,
    secure: true,
    sameSite: "strict",
    path: "/",
@@ -25,13 +24,13 @@ export const authSlice = createSlice({
       },
       setAuth: (state, { payload }) => {
          state.user = payload.user
-         if (payload.token) Cookies.set("token", JSON.stringify(payload.token), cookieConfig)
-         Cookies.set("user", JSON.stringify(payload.user), cookieConfig)
+         if (payload.token) Cookies.set("tk", JSON.stringify(payload.token), cookieConfig)
+         Cookies.set("us", JSON.stringify(payload.user), cookieConfig)
       },
       logout: (state) => {
          state.user = null as any
-         Cookies.remove("token", cookieConfig)
-         Cookies.remove("user", cookieConfig)
+         Cookies.remove("tk", cookieConfig)
+         Cookies.remove("us", cookieConfig)
          window.location.href = authRoutes.login
       },
    },
