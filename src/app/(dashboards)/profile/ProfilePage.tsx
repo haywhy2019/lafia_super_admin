@@ -1,7 +1,9 @@
 "use client"
 
+import { authSelector } from "@/redux/features/auth.slice"
+import { useAppSelector } from "@/redux/hooks"
 import { Button, Column, FluidForm, Grid, Stack, TextInput } from "@carbon/react"
-import { Image as ImageIcon, Locked, TrashCan } from "@carbon/react/icons"
+import { Image as ImageIcon, Locked } from "@carbon/react/icons"
 import { Formik } from "formik"
 
 import React from "react"
@@ -18,10 +20,11 @@ const ProfilePage = () => {
    const [deleteAccount, setDeleteAccount] = React.useState(false)
 
    const inputRef = React.useRef<HTMLInputElement | null>(null)
+   const user = useAppSelector(authSelector)?.user
 
    const openChangePasswordModal = () => setChangePassword(true)
    const closeChangePasswordModal = () => setChangePassword(false)
-   const openDeleteAccountModal = () => setDeleteAccount(true)
+   // const openDeleteAccountModal = () => setDeleteAccount(true)
    const closeDeleteAccountModal = () => setDeleteAccount(false)
 
    const handleSubmit = () => {}
@@ -43,6 +46,8 @@ const ProfilePage = () => {
       }
    }
 
+   const name = user?.firstName ? `${user?.firstName} ${user?.lastName}` : ""
+
    return (
       <>
          <section className={styles.container}>
@@ -56,13 +61,13 @@ const ProfilePage = () => {
                   <Button kind="tertiary" renderIcon={Locked} onClick={openChangePasswordModal}>
                      Change Password
                   </Button>
-                  <Button
+                  {/* <Button
                      kind="danger--tertiary"
                      renderIcon={TrashCan}
                      onClick={openDeleteAccountModal}
                   >
                      Delete Account
-                  </Button>
+                  </Button> */}
                </div>
             </div>
 
@@ -105,10 +110,11 @@ const ProfilePage = () => {
                      onSubmit={handleSubmit}
                      // validationSchema={loginSchema}
                      initialValues={{
-                        name: "John Doe",
-                        title: "Doctor",
-                        email: "jdoe@hospital.com",
+                        name,
+                        title: "Admin",
+                        email: user?.email,
                      }}
+                     enableReinitialize
                   >
                      {(props) => {
                         return (
@@ -165,7 +171,7 @@ const ProfilePage = () => {
                                     />
                                  </Stack>
 
-                                 <Button
+                                 {/* <Button
                                     // disabled={!props.isValid}
                                     style={{ maxWidth: "none", width: "100%" }}
                                     kind="primary"
@@ -173,7 +179,7 @@ const ProfilePage = () => {
                                     size="lg"
                                  >
                                     Edit
-                                 </Button>
+                                 </Button> */}
                               </Stack>
                            </FluidForm>
                         )

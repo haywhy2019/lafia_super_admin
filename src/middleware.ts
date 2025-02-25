@@ -2,9 +2,8 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
-import { authRoutes } from "@/helpers/routes"
+import { appRoutes, authRoutes } from "@/helpers/routes"
 
-import { getRedirectUrl } from "./helpers/utils"
 import { User } from "./types/general"
 
 const getJsonParsedCookie = (req: NextRequest, key: string) => {
@@ -27,24 +26,22 @@ export async function middleware(request: NextRequest) {
    const token = getJsonParsedCookie(request, "token") as string
    const user = getJsonParsedCookie(request, "user") as User
 
-   //Redirect user if logged in & not trying to authenticate a sub-application
-   if (pathname === authRoutes.login && user) {
-      const hasPrompt = url.searchParams.has("prompt")
-      const hasLoginHint = url.searchParams.has("login_hint")
-      const hasContinue = url.searchParams.has("continue")
-
-      if (!hasPrompt && !hasLoginHint && !hasContinue) {
-         const redirectUrl = new URL(getRedirectUrl(user)!, request.url)
-         return NextResponse.redirect(redirectUrl)
-      }
+   //Redirect to login page if user tries to access / route
+   if (pathname === "/") {
+      const redirectUrl = new URL(authRoutes.login, request.url)
+      return NextResponse.redirect(redirectUrl)
    }
-
-   // Redirect to email verifiy page if email is not verified
 
    // Redirect to dashboard if user is already logged in
    if (token && isAuthPage) {
-      const url = new URL(getRedirectUrl(user)!, request.url)
-      return NextResponse.redirect(url)
+      const redirectUrl = new URL(appRoutes.dashboard, request.url)
+      return NextResponse.redirect(redirectUrl)
+   }
+
+   //Redirect to login page if user is not logged in
+   if (!token && !user && !isAuthPage) {
+      const redirectUrl = new URL(authRoutes.login, request.url)
+      return NextResponse.redirect(redirectUrl)
    }
 
    // Allow the request to proceed for other cases
@@ -53,6 +50,13 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
    matcher: [
-      // "/login",
+      "/login",
+      "/dashboard",
+      "/organisations",
+      "/products",
+      "/payments",
+      "/profile",
+      "/settings",
+      "/audit-logs",
    ],
 }

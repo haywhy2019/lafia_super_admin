@@ -1,20 +1,30 @@
 "use client"
 
+import { authSelector } from "@/redux/features/auth.slice"
+import { useAppSelector } from "@/redux/hooks"
+
 import React from "react"
+
+import Image from "next/image"
+
+import PageHeader from "@/components/navigation/PageHeader"
 
 import styles from "./dashboard.module.scss"
 
 const DashboardPage = () => {
+   const user = useAppSelector(authSelector)?.user
+
+   const name = user?.firstName ? `${user?.firstName} ${user?.lastName}` : ""
    return (
       <>
-         {/* <PageHeader
+         <PageHeader
             image={<Image src="/svg/dashboardNotice.svg" alt="" width={36} height={36} />}
             title={`Welcome Back, ${name || ""}!`}
-            text="Streamline patient management and make your practice more efficient and organized with ease today."
-         /> */}
+            text=""
+         />
 
          <section className={styles.container}>
-            <h1>dashboard</h1>
+            <p>dashboard</p>
          </section>
       </>
    )
