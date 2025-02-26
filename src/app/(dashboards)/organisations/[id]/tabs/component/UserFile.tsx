@@ -1,7 +1,9 @@
 "use client"
 
+import { authSelector } from "@/redux/features/auth.slice"
+import { useAppSelector } from "@/redux/hooks"
 import { DocumentDownload, DocumentView } from "@carbon/icons-react"
-import { InlineLoading } from "@carbon/react"
+import { InlineLoading, InlineNotification } from "@carbon/react"
 import { useMutation } from "@tanstack/react-query"
 
 import React, { useState } from "react"
@@ -9,18 +11,15 @@ import React, { useState } from "react"
 import organisationApi, { organisationComplianceType } from "@/axios/organisation.api"
 
 import style from "./userFile.module.scss"
-import { authSelector } from "@/redux/features/auth.slice"
-import { useAppSelector } from "@/redux/hooks"
+import Toast from "@/components/Toast"
 
-function UserFile({ title, name ,docType}: { title: string; name: string,docType: string}) {
-
-      const user = useAppSelector(authSelector).user.id
+function UserFile({ title, name, docType }: { title: string; name: string; docType: string }) {
+   const user = useAppSelector(authSelector).user.id
    const payload = {
       userId: user,
       documentType: docType,
       idstatus: "",
    }
-
 
    const [message, setMessage] = useState("")
 
@@ -32,15 +31,22 @@ function UserFile({ title, name ,docType}: { title: string; name: string,docType
    } = useMutation({
       mutationFn: organisationApi.organisationCompliance,
       onSuccess: ({ data }) => {
-         console.log(data, "payload")
+      
       },
       onError: (error: any) => {
-         console.log(error, "error")
          setMessage(error.response.data.message || "An error occurred")
       },
    })
 
+
    return (
+      <>
+        {(isError || isSuccess) && (
+            <InlineNotification
+               kind={isError ? "error" : "success"}
+               title={message || (isError ? "An error occurred" : "Success")}
+            />
+         )}
       <div className={style.container}>
          <div className={style.container_bg}>
             <div className={style.flex_between}>
@@ -61,8 +67,10 @@ function UserFile({ title, name ,docType}: { title: string; name: string,docType
             </div>
          </div>
          {isPending ? (
-            <div className={style.loading}>  <InlineLoading /></div>
-           
+            <div className={style.loading}>
+               {" "}
+               <InlineLoading />
+            </div>
          ) : (
             <div className={style.flex_start}>
                <p
@@ -88,6 +96,7 @@ function UserFile({ title, name ,docType}: { title: string; name: string,docType
             </div>
          )}
       </div>
+      </>
    )
 }
 
