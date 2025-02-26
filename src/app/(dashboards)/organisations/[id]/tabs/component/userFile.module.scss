@@ -54,7 +54,8 @@
     @include type-style("label-02");
     font-size: 0.75rem;
     font-weight: bold;
-    color: #24A148
+    color: #24A148;
+    padding: $spacing-02 0
 }
 
 .deny_text {
@@ -62,4 +63,9 @@
     font-size: 0.75rem;
     font-weight: bold;
     color: #DA1E28;
+    padding: $spacing-02 0
+}
+
+.loading{
+    padding: $spacing-02 0
 }

@@ -1,12 +1,45 @@
 "use client"
 
 import { DocumentDownload, DocumentView } from "@carbon/icons-react"
+import { InlineLoading } from "@carbon/react"
+import { useMutation } from "@tanstack/react-query"
 
-import React from "react"
+import React, { useState } from "react"
+
+import organisationApi, { organisationComplianceType } from "@/axios/organisation.api"
 
 import style from "./userFile.module.scss"
+import { authSelector } from "@/redux/features/auth.slice"
+import { useAppSelector } from "@/redux/hooks"
 
-function UserFile({ title, name }: { title: string; name: string }) {
+function UserFile({ title, name ,docType}: { title: string; name: string,docType: string}) {
+
+      const user = useAppSelector(authSelector).user.id
+   const payload = {
+      userId: user,
+      documentType: docType,
+      idstatus: "",
+   }
+
+
+   const [message, setMessage] = useState("")
+
+   const {
+      mutate: _verifyDoc,
+      isError,
+      isSuccess,
+      isPending,
+   } = useMutation({
+      mutationFn: organisationApi.organisationCompliance,
+      onSuccess: ({ data }) => {
+         console.log(data, "payload")
+      },
+      onError: (error: any) => {
+         console.log(error, "error")
+         setMessage(error.response.data.message || "An error occurred")
+      },
+   })
+
    return (
       <div className={style.container}>
          <div className={style.container_bg}>
@@ -27,10 +60,33 @@ function UserFile({ title, name }: { title: string; name: string }) {
                </div>
             </div>
          </div>
-         <div className={style.flex_start}>
-            <p className={style.approve_text}>Approve</p>
-            <p className={style.deny_text}>Deny</p>
-         </div>
+         {isPending ? (
+            <div className={style.loading}>  <InlineLoading /></div>
+           
+         ) : (
+            <div className={style.flex_start}>
+               <p
+                  className={style.approve_text}
+                  onClick={() => {
+                     payload.idstatus = "VERIFIED"
+                     console.log(payload)
+                     _verifyDoc(payload)
+                  }}
+               >
+                  Approve
+               </p>
+               <p
+                  className={style.deny_text}
+                  onClick={() => {
+                     payload.idstatus = "DECLINED"
+                     console.log(payload)
+                     _verifyDoc(payload)
+                  }}
+               >
+                  Deny
+               </p>
+            </div>
+         )}
       </div>
    )
 }

@@ -14,8 +14,8 @@ import ComplianceTab from "./tabs/ComplianceTab"
 import ProductsTab from "./tabs/ProductsTab"
 import StaffsTab from "./tabs/StaffsTab"
 
-const SingleOrganisationPage = ({ id }: { id: string }) => {
-   console.log("test", id)
+const SingleOrganisationPage = () => {
+  
    const breadCrumbs = [
       { title: "Organisations", href: appRoutes.organisations },
       { title: "Organisation Profile", href: "" },
@@ -35,7 +35,7 @@ const SingleOrganisationPage = ({ id }: { id: string }) => {
                      </TabList>
                      <TabPanels>
                         <TabPanel>
-                           <ComplianceTab />
+                           <ComplianceTab/>
                         </TabPanel>
                         <TabPanel>
                            <ActivityLogTab />

@@ -5,12 +5,20 @@
    display: flex;
    justify-content: space-between;
    padding: $spacing-04 0;
+   align-items: center;
 
    span {
       display: flex;
+      align-items: center;
    }
 
    p {
       @include type-style("label-02");
+   }
+}
+
+.copy {   
+   svg {
+      fill: #0F62FE !important;
    }
 }
