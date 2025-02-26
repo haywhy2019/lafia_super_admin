@@ -8,7 +8,7 @@ const Toast: React.FC<ToastNotificationProps> = ({ ...props }) => {
          {...props}
          role="status"
          timeout={3000}
-         style={{ position: "absolute", top: 40 }}
+         style={{ position: "absolute", top: 50, minWidth: "fit-content", zIndex: 100 }}
       />
    )
 }

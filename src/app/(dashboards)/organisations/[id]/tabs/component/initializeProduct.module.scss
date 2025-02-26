@@ -1,0 +1,42 @@
+.tile {
+  padding: 1.5rem;
+  width: 100%;
+  border-radius: 8px;
+  background: white;
+  border: 1px solid #EBEBEB;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.poweredBy {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #333333;
+}
+
+.divider {
+  border-top: 1px solid #EBEBEB;
+  margin: 1rem 0;
+}
+
+.actionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.actionRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.loading {
+  margin-left: 0.5rem;
+}

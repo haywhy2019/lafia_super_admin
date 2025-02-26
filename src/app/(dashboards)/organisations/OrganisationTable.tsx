@@ -78,7 +78,10 @@ const OrganisationTable: React.FC<Props> = ({
             </p>
          ),
          action: (
-            <Link href={`${appRoutes.organisations}/${row.id}`} className={styles.action_cell}>
+            <Link
+               href={`${appRoutes.organisations}/${row.id}?u=${row.uuid}`}
+               className={styles.action_cell}
+            >
                View
             </Link>
          ),
