@@ -65,3 +65,6 @@ export const getRedirectUrl = ({ userType }: User) => {
    if (userType) return "/dashboard"
    return "/dashboard"
 }
+
+const sizes = ["10", "20", "30", "40", "50"]
+export const pageSizes = sizes.map((size) => ({ value: Number(size), text: size }))

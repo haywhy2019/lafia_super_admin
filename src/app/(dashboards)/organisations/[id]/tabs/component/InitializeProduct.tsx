@@ -44,7 +44,7 @@ const InitializeProduct: React.FC<Props> = ({ ...props }) => {
 
          <div className={styles.actionsContainer}>
             <div className={styles.actionRow}>
-               <span>Initialize organisation</span>
+               <span>Initialize Organisation</span>
                <div>
                   {props.loadingInit ? (
                      <InlineLoading className={styles.loading} description="Loading..." />
@@ -60,7 +60,7 @@ const InitializeProduct: React.FC<Props> = ({ ...props }) => {
                </div>
             </div>
             <div className={styles.actionRow}>
-               <span>Setup admin</span>
+               <span>Setup Admin</span>
                <div>
                   {props.loadingAdmin ? (
                      <InlineLoading className={styles.loading} description="Loading..." />

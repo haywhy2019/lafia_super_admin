@@ -1,6 +1,5 @@
 /* eslint-disable */
 
-
 export const enum userStatus {
    ACTIVE = "A",
    INACTIVE = "I",
@@ -10,7 +9,6 @@ export const enum userTypes {
    ORGANIZATION = "ORGANIZATION",
    STAFF = "STAFF",
    USER = "USER",
-   SUPER_ADMIN = "SUPER_ADMIN",
 }
 
 export const enum organizationTypes {

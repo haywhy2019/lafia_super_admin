@@ -3,12 +3,15 @@
 /* eslint-disable */
 import { AxiosResponse } from "axios"
 
+import { userTypes } from "@/helpers/enum"
+
 import { privateInstance } from "./instance.api"
 
 const organisationApi: orgApiType = {
    fetchAllOrganisations: async (payload) => {
-      let url = `/user/users?pageSize=${payload.pageSize}&pageNo=${payload.pageNo}`
-      // if (payload.query) url += `&query=${query}`
+      let url = `/user/fetch-user?size=${payload.pageSize}&page=${payload.pageNo}&userType=${payload.userType || userTypes.ORGANIZATION}`
+      if (payload.needSetup) url += `&needSetup=${payload.needSetup}`
+      if (payload.isKycComplete) url += `&isKycComplete=${payload.isKycComplete}`
       return await privateInstance.get(url)
    },
    initialiseHms: async (uuid) => await privateInstance.post(`/tenant/create/${uuid}`),
@@ -26,4 +29,7 @@ type orgApiType = {
 export type FetchAllTennantType = {
    pageSize: number
    pageNo: number
+   userType?: userTypes
+   needSetup?: boolean
+   isKycComplete?: boolean
 }

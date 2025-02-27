@@ -26,7 +26,7 @@ import { User } from "@/types/general"
 
 import { pageSizes } from "../../../helpers/constants"
 import { appRoutes } from "../../../helpers/routes"
-import { formatDate } from "../../../helpers/utils"
+import { convertToLowerCase, formatDate, truncateText } from "../../../helpers/utils"
 import styles from "./staff.module.scss"
 
 type Props = {
@@ -49,16 +49,17 @@ const OrganisationTable: React.FC<Props> = ({
    totalOrganisations,
 }) => {
    const [inviteModal, setInviteModal] = React.useState(false) //eslint-disable-line
+   const [searchTerm, setSearchTerm] = React.useState("")
 
    const openInviteStaffModal = () => setInviteModal(true)
    // const closeInviteStaffModal = () => setInviteModal(false)
 
    const headers = [
-      { header: "Last Active", key: "last_active" },
-      { header: "Name", key: "name" },
-      { header: "Type", key: "email" },
-      { header: "Status", key: "status" },
-      { header: "Action", key: "action" },
+      { header: "Last Active", key: "last_active", isSortable: true },
+      { header: "Name", key: "name", isSortable: true },
+      { header: "Type", key: "type", isSortable: true },
+      { header: "Status", key: "status", isSortable: true },
+      { header: "Action", key: "action", isSortable: false },
    ]
 
    const rows = organisations?.map((row) => {
@@ -66,9 +67,18 @@ const OrganisationTable: React.FC<Props> = ({
          ...row,
          id: row.id.toString(),
          last_active: (
-            <p className={styles.last_active_cell}>{formatDate(row.lastLoginDate) || "-"}</p>
+            <p className={styles.last_active_cell}>
+               {row.lastLoginDate ? formatDate(row.lastLoginDate) : "-"}
+            </p>
          ),
-         name: <p className={styles.last_active_cell}>{`${row.firstName} ${row.lastName}`}</p>,
+         name: (
+            <p className={styles.last_active_cell} title={row.organizationName}>
+               {truncateText(row.organizationName, 60)}
+            </p>
+         ),
+         type: (
+            <p className={styles.last_active_cell}>{convertToLowerCase(row.organizationType)}</p>
+         ),
          status: (
             <p
                className={styles.last_active_cell}
@@ -94,16 +104,21 @@ const OrganisationTable: React.FC<Props> = ({
    }
 
    return isLoading ? (
-      <DataTableSkeleton zebra rowCount={5} headers={headers} title="" aria-label="staff table" />
+      <DataTableSkeleton
+         zebra
+         rowCount={5}
+         headers={headers}
+         title=""
+         aria-label="organisation table"
+      />
    ) : (
       <>
          <DataTable
             rows={rows}
             headers={headers}
-            isSortable
             useZebraStyles
-            aria-label="staff table"
-            data-testId="staff-table"
+            aria-label="organisation table"
+            data-testId="organisation-table"
          >
             {({
                rows,
@@ -119,7 +134,8 @@ const OrganisationTable: React.FC<Props> = ({
                   <TableToolbar {...getToolbarProps()} aria-label="staff table toolbar">
                      <TableToolbarContent>
                         <TableToolbarSearch
-                           // onChange={onInputChange}
+                           value={searchTerm}
+                           onChange={(value) => setSearchTerm(value.toString)}
                            placeholder="Search organisation name"
                            persistent
                            data-testId="organisation-search-input"
@@ -137,11 +153,11 @@ const OrganisationTable: React.FC<Props> = ({
                   <Table {...getTableProps()} aria-label="organisation table">
                      <TableHead>
                         <TableRow>
-                           {headers.map((header) => (
+                           {headers.map((header: any) => (
                               <TableHeader
-                                 // key={header.key}
                                  {...getHeaderProps({
                                     header,
+                                    isSortable: header.isSortable as boolean,
                                  })}
                                  key={header.key}
                               >
