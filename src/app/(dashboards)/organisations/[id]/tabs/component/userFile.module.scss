@@ -55,7 +55,8 @@
     font-size: 0.75rem;
     font-weight: bold;
     color: #24A148;
-    padding: $spacing-02 0
+    padding: $spacing-02 0;
+    cursor: pointer;
 }
 
 .deny_text {
@@ -63,7 +64,8 @@
     font-size: 0.75rem;
     font-weight: bold;
     color: #DA1E28;
-    padding: $spacing-02 0
+    padding: $spacing-02 0;
+    cursor: pointer;
 }
 
 .loading{

@@ -3,7 +3,14 @@
 import { authSelector } from "@/redux/features/auth.slice"
 import { useAppSelector } from "@/redux/hooks"
 import { DocumentDownload, DocumentView } from "@carbon/icons-react"
-import { InlineLoading, InlineNotification } from "@carbon/react"
+import {
+   Dropdown,
+   InlineLoading,
+   InlineNotification,
+   Modal,
+   MultiSelect,
+   TextInput,
+} from "@carbon/react"
 import { useMutation } from "@tanstack/react-query"
 
 import React, { useState } from "react"
@@ -14,18 +21,32 @@ import Toast from "@/components/Toast"
 
 import style from "./userFile.module.scss"
 
-function UserFile({ title, name, docType }: { title: string; name: string; docType: string }) {
-   const user = useAppSelector(authSelector).user
+const denyReasonDropdownOptions = [
+   {
+      id: "option-0",
+      text: "File not clear",
+   },
+   {
+      id: "option-1",
+      text: "Wrong file uploaded",
+   },
+   {
+      id: "option-2",
+      text: "Face ID mismatch",
+   },
+  
+]
 
-   console.log(user, "user")
+function UserFile({ title, name, docType }: { title: string; name: string; docType: string }) {
+   const [message, setMessage] = useState("")
+   const [open, setOpen] = useState(true)
+   const user = useAppSelector(authSelector).user
 
    const payload = {
       userId: user.id,
       documentType: docType,
       idstatus: "",
    }
-
-   const [message, setMessage] = useState("")
 
    const {
       mutate: _verifyDoc,
@@ -40,8 +61,50 @@ function UserFile({ title, name, docType }: { title: string; name: string; docTy
       },
    })
 
+   const DenyModal = () => {
+      return (
+         <Modal
+            onRequestClose={(e) => {
+               setOpen(false)
+            }}
+            modalHeading="Reason For Denial"
+            primaryButtonText="Add"
+            onSubmit={() => {
+               payload.idstatus = "DECLINED"
+               _verifyDoc(payload)
+            }}
+            aria-label="Modal content"
+            open={open}
+         
+         >
+            <p
+               style={{
+                  marginBottom: "1rem",
+               }}
+            >
+             Kindly let the organisation know why you are denying this requirement approval.
+            </p>
+
+            <Dropdown
+               autoAlign={true}
+               id="default"
+               style={{
+                  margin: "1rem 0",
+               }}
+               titleText="Reason"
+               helperText="Reason for document denial"
+               label="Reason for document denial"
+               items={denyReasonDropdownOptions}
+               itemToString={(item) => (item ? item.text : "")}
+               direction="top"
+            />
+         </Modal>
+      )
+   }
+
    return (
       <>
+      <DenyModal />
          {(isError || isSuccess) && (
             <InlineNotification
                kind={isError ? "error" : "success"}
@@ -86,10 +149,7 @@ function UserFile({ title, name, docType }: { title: string; name: string; docTy
                   </p>
                   <p
                      className={style.deny_text}
-                     onClick={() => {
-                        payload.idstatus = "DECLINED"
-                        _verifyDoc(payload)
-                     }}
+                     onClick={() => setOpen(true)}
                   >
                      Deny
                   </p>
