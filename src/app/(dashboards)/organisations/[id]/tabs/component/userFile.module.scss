@@ -20,7 +20,9 @@
             @include type-style("label-02");
             font-size: 0.7rem;
             color: #0F62FE
-         }
+         };
+         cursor: pointer;
+        
 }
 
 .flex_between{

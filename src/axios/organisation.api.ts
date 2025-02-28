@@ -17,6 +17,9 @@ const organisationApi: orgApiType = {
    organisationCompliance: async (payload) => {
       return await privateInstance.post("/kyc/verify-manual-kyc-document",payload)
    },
+   organisationGetComplianceDoc: async (payload) => {
+      return await privateInstance.get(`/kyc/${payload}`)
+   },
    organisationViewComplianceDoc: async (payload) => {
       return await privateInstance.post("/file/presign-url/file-view",payload)
    },
@@ -29,6 +32,7 @@ export default organisationApi
 type orgApiType = {
    fetchAllOrganisations: (payload: FetchAllTennantType) => Promise<AxiosResponse>
    organisationCompliance: (payload: organisationComplianceType) => Promise<AxiosResponse>
+   organisationGetComplianceDoc: (payload: string) => Promise<AxiosResponse>
    organisationViewComplianceDoc:  (payload: organisationViewComplianceDoc) => Promise<AxiosResponse>
    initialiseHms: (uuid: string) => Promise<AxiosResponse>
    createHmsAdmin: (uuid: string) => Promise<AxiosResponse>
@@ -43,7 +47,7 @@ export type FetchAllTennantType = {
 }
 
 export type organisationComplianceType = {
-   userId: number
+   userId: string
    documentType: string
    idstatus: string
 }

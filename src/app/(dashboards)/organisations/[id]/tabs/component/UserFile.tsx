@@ -1,7 +1,5 @@
 "use client"
 
-import { authSelector } from "@/redux/features/auth.slice"
-import { useAppSelector } from "@/redux/hooks"
 import { DocumentDownload, DocumentView } from "@carbon/icons-react"
 import {
    Dropdown,
@@ -13,11 +11,17 @@ import {
 } from "@carbon/react"
 import { useMutation } from "@tanstack/react-query"
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+
+import Image from "next/image"
+import { useParams } from "next/navigation"
 
 import organisationApi, { organisationComplianceType } from "@/axios/organisation.api"
 
-import Toast from "@/components/Toast"
+import { downloadImage } from "@/helpers/utils"
+
+import { KYCDocument } from "@/types/documents.types"
+import { User } from "@/types/general"
 
 import style from "./userFile.module.scss"
 
@@ -34,16 +38,30 @@ const denyReasonDropdownOptions = [
       id: "option-2",
       text: "Face ID mismatch",
    },
-  
 ]
 
-function UserFile({ title, name, docType }: { title: string; name: string; docType: string }) {
+function UserFile({
+   title,
+   item,
+   docType,
+   userData,
+}: {
+   title: string
+   docType: string
+   item: KYCDocument
+   userData: User
+}) {
    const [message, setMessage] = useState("")
-   const [open, setOpen] = useState(true)
-   const user = useAppSelector(authSelector).user
+   const [openDenyModal, setOpenDenyModal] = useState(false)
+   const [openViewDocModal, setOpenViewDocModal] = useState(false)
+   const [doctString, setDocString] = useState("")
+   const [reason, setReason] = useState<string | undefined>("")
+   const { id } = useParams()
+
+   const { documentName, documentFile } = item
 
    const payload = {
-      userId: user.id,
+      userId: id.toString(),
       documentType: docType,
       idstatus: "",
    }
@@ -61,28 +79,46 @@ function UserFile({ title, name, docType }: { title: string; name: string; docTy
       },
    })
 
+   const {
+      mutate: _viewDoc,
+      isError: viewErr,
+      isSuccess: viewSuccess,
+      isPending: viewLoading,
+   } = useMutation({
+      mutationFn: organisationApi.organisationViewComplianceDoc,
+      onSuccess: ({ data }) => {
+         setDocString(data.data)
+      },
+      onError: (error: any) => {
+         setMessage(error.response.data.message || "An error occurred")
+      },
+   })
+
    const DenyModal = () => {
       return (
          <Modal
             onRequestClose={(e) => {
-               setOpen(false)
+               setOpenDenyModal(false)
             }}
             modalHeading="Reason For Denial"
-            primaryButtonText="Add"
-            onSubmit={() => {
+            primaryButtonText="Send"
+            onRequestSubmit={() => {
                payload.idstatus = "DECLINED"
+
+               setOpenDenyModal(false)
                _verifyDoc(payload)
             }}
+            primaryButtonDisabled={!reason ? true : false}
+            loadingStatus={isPending ? "active" : "inactive"}
             aria-label="Modal content"
-            open={open}
-         
+            open={openDenyModal}
          >
             <p
                style={{
                   marginBottom: "1rem",
                }}
             >
-             Kindly let the organisation know why you are denying this requirement approval.
+               Kindly let the organisation know why you are denying this requirement approval.
             </p>
 
             <Dropdown
@@ -93,18 +129,50 @@ function UserFile({ title, name, docType }: { title: string; name: string; docTy
                }}
                titleText="Reason"
                helperText="Reason for document denial"
-               label="Reason for document denial"
+               label="Select reason for document denial"
                items={denyReasonDropdownOptions}
                itemToString={(item) => (item ? item.text : "")}
-               direction="top"
+               onChange={({ selectedItem }) => setReason(selectedItem?.text)}
+               direction="bottom"
             />
+            <p className={style.error}>{reason}</p>
          </Modal>
       )
    }
 
+   const ViewDocModal = () => {
+      return (
+         <Modal
+            onRequestClose={(e) => {
+               setOpenViewDocModal(false)
+            }}
+            modalHeading={`${docType}`}
+            passiveModal
+            aria-label="Modal content"
+            open={openViewDocModal}
+         >
+            <Image src={doctString} alt="Picture of the document" width={600} height={400} />
+         </Modal>
+      )
+   }
+
+   useEffect(() => {
+      _viewDoc({ fileKey: documentFile })
+   }, [documentFile])
+
+   console.log(userData, "user ddee")
+   if (viewLoading) {
+      return <InlineLoading className={style.container_bg} />
+   }
+
+   if (viewErr) {
+      return <InlineNotification kind={"error"} title={message || "An error occurred"} />
+   }
    return (
       <>
-      <DenyModal />
+         <DenyModal />
+         <ViewDocModal />
+
          {(isError || isSuccess) && (
             <InlineNotification
                kind={isError ? "error" : "success"}
@@ -115,15 +183,20 @@ function UserFile({ title, name, docType }: { title: string; name: string; docTy
             <div className={style.container_bg}>
                <div className={style.flex_between}>
                   <div className={style.flex_between}>
-                     <p className={style.title}>{title}:</p>
-                     <p className={style.name}>{name}</p>
+                     <p className={style.title}>{title}</p>
+                     <p className={style.name}>{documentName?.slice(0, 50)+"..."|| "Not found"}</p>
                   </div>
                   <div className={style.flex_between}>
-                     <div className={style.icon}>
+                     <div
+                        className={style.icon}
+                        onClick={() => {
+                           downloadImage(doctString, `${userData?.organizationName}${docType}`)
+                        }}
+                     >
                         <DocumentDownload fill={"#0F62FE"} size={10} />
                         <p>Download</p>
                      </div>
-                     <div className={style.icon}>
+                     <div className={style.icon} onClick={() => setOpenViewDocModal(true)}>
                         <DocumentView fill={"#0F62FE"} size={10} />
                         <p>View</p>
                      </div>
@@ -135,26 +208,7 @@ function UserFile({ title, name, docType }: { title: string; name: string; docTy
                   {" "}
                   <InlineLoading />
                </div>
-            ) : user.kycComplete == false ? (
-               <div className={style.flex_start}>
-                  <p
-                     className={style.approve_text}
-                     onClick={() => {
-                        payload.idstatus = "VERIFIED"
-                        console.log(payload)
-                        _verifyDoc(payload)
-                     }}
-                  >
-                     Approve
-                  </p>
-                  <p
-                     className={style.deny_text}
-                     onClick={() => setOpen(true)}
-                  >
-                     Deny
-                  </p>
-               </div>
-            ) : (
+            ) : item.status === "VERIFIED" ? (
                <div className={style.flex_start}>
                   <p
                      className={style.approve_text}
@@ -164,6 +218,21 @@ function UserFile({ title, name, docType }: { title: string; name: string; docTy
                      }}
                   >
                      Resubmit
+                  </p>
+               </div>
+            ) : (
+               <div className={style.flex_start}>
+                  <p
+                     className={style.approve_text}
+                     onClick={() => {
+                        payload.idstatus = "VERIFIED"
+                        _verifyDoc(payload)
+                     }}
+                  >
+                     Approve
+                  </p>
+                  <p className={style.deny_text} onClick={() => setOpenDenyModal(true)}>
+                     Deny
                   </p>
                </div>
             )}

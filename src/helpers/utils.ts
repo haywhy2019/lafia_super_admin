@@ -68,3 +68,25 @@ export const getRedirectUrl = ({ userType }: User) => {
 
 const sizes = ["10", "20", "30", "40", "50"]
 export const pageSizes = sizes.map((size) => ({ value: Number(size), text: size }))
+
+export const downloadImage = async (imageUrl: string, name: string) => {
+   try {
+     const response = await fetch(imageUrl);
+     const blob = await response.blob();
+     const url = URL.createObjectURL(blob);
+ 
+     // Create a temporary link and trigger download
+     const a = document.createElement("a");
+     a.href = url;
+     a.download =  `${name}.jpg`;
+     document.body.appendChild(a);
+     a.click();
+     document.body.removeChild(a);
+ 
+     // Revoke the object URL to free memory
+     URL.revokeObjectURL(url);
+   } catch (error) {
+     console.error("Error downloading the image:", error);
+   }
+ };
+ 
