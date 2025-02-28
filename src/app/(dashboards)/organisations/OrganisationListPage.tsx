@@ -46,9 +46,9 @@ const OrganisationListPage = () => {
    )
 
    const metrics = [
-      { name: "Active", value: data?.numberOfElements || 0 },
-      { name: "Inactive", value: activeUsersCount || 0 },
-      { name: "Pending", value: data?.numberOfElements - (activeUsersCount || 0) || 0 },
+      { name: "Total", value: data?.totalElements || 0 },
+      { name: "Active", value: activeUsersCount || 0 },
+      { name: "Inactive", value: data?.totalElements - (activeUsersCount || 0) || 0 },
    ]
 
    return (
@@ -98,7 +98,7 @@ const OrganisationListPage = () => {
                   setPage={setPage}
                   pageSize={pageSize}
                   setPageSize={setPageSize}
-                  totalOrganisations={data?.numberOfElements}
+                  totalOrganisations={data?.totalElements}
                />
             </section>
          )}

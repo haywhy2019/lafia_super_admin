@@ -15,11 +15,14 @@ import ProductsTab from "./tabs/ProductsTab"
 import StaffsTab from "./tabs/StaffsTab"
 
 const SingleOrganisationPage = () => {
-  
    const breadCrumbs = [
       { title: "Organisations", href: appRoutes.organisations },
       { title: "Organisation Profile", href: "" },
    ]
+
+   const tabheaders = ["Compliance", "Products", "Staff", "Activity Log"]
+   const tabPanels = [ComplianceTab, ProductsTab, StaffsTab, ActivityLogTab]
+
    return (
       <Grid style={{ padding: "1.5rem" }}>
          <Column lg={16} md={8} sm={4}>
@@ -28,24 +31,17 @@ const SingleOrganisationPage = () => {
                <div className={styles.tab_padding}>
                   <Tabs>
                      <TabList aria-label="List of tabs" style={{}}>
-                        <Tab className={""}>Compliance</Tab>
-                        <Tab className={""}>Activity Log</Tab>
-                        <Tab className={""}>Products</Tab>
-                        <Tab className={""}>Staff</Tab>
+                        {tabheaders.map((header, index) => (
+                           <Tab key={index}>{header}</Tab>
+                        ))}
                      </TabList>
+
                      <TabPanels>
-                        <TabPanel>
-                           <ComplianceTab/>
-                        </TabPanel>
-                        <TabPanel>
-                           <ActivityLogTab />
-                        </TabPanel>
-                        <TabPanel>
-                           <ProductsTab />
-                        </TabPanel>
-                        <TabPanel>
-                           <StaffsTab />
-                        </TabPanel>
+                        {tabPanels.map((Panel, index) => (
+                           <TabPanel key={index}>
+                              <Panel />
+                           </TabPanel>
+                        ))}
                      </TabPanels>
                   </Tabs>
                </div>

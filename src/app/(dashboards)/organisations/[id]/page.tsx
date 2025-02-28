@@ -9,10 +9,8 @@ export const metadata: Metadata = {
    description: "",
 }
 
-
 const SingleOrganisation = () => {
- 
-   return <SingleOrganisationPage  />
+   return <SingleOrganisationPage />
 }
 
 export default SingleOrganisation
