@@ -58,7 +58,10 @@ function UserFile({
    const [reason, setReason] = useState<string | undefined>("")
    const { id } = useParams()
 
+   if(item) {
    const { documentName, documentFile } = item
+   }
+
 
    const payload = {
       userId: id.toString(),
@@ -157,10 +160,11 @@ function UserFile({
    }
 
    useEffect(() => {
-      _viewDoc({ fileKey: documentFile })
-   }, [documentFile])
 
-   console.log(userData, "user ddee")
+      _viewDoc({ fileKey: item?.documentFile })
+   }, [item?.documentFile])
+
+   console.log(userData, "user ddee", doctString, "file")
    if (viewLoading) {
       return <InlineLoading className={style.container_bg} />
    }
@@ -184,7 +188,9 @@ function UserFile({
                <div className={style.flex_between}>
                   <div className={style.flex_between}>
                      <p className={style.title}>{title}</p>
-                     <p className={style.name}>{documentName?.slice(0, 50)+"..."|| "Not found"}</p>
+                     <p className={style.name}>
+                        {item?.documentName?.slice(0, 50) + "..." || "Not found"}
+                     </p>
                   </div>
                   <div className={style.flex_between}>
                      <div
@@ -208,7 +214,7 @@ function UserFile({
                   {" "}
                   <InlineLoading />
                </div>
-            ) : item.status === "VERIFIED" ? (
+            ) : item?.status === "VERIFIED" ? (
                <div className={style.flex_start}>
                   <p
                      className={style.approve_text}

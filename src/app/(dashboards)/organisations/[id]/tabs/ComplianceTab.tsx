@@ -95,10 +95,9 @@ function ComplianceTab() {
                />
                <UserFile
                   title={"Memorandum and Article of Association:"}
-              
                   docType="MAA"
                   item={data?.maa}
-                  userData={data.user}
+                  userData={data}
                />
                <UserInfo
                   label={"Govt Organisation Certification Type"}
@@ -132,7 +131,6 @@ function ComplianceTab() {
                   docType="ADDRESS"
                   item={data?.stakeHolders}
                   userData={data}
-                  
                />
 
                <div className={style.line}>
