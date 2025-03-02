@@ -1,0 +1,93 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/layout';
+@use '@carbon/colors';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: $spacing-07;
+}
+
+
+.last_active_cell {
+  font-size: 0.875rem;
+  text-transform: capitalize;
+}
+
+.action_cell {
+  font-size: 0.875rem;
+  color: colors.$blue-50;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline
+  }
+}
+
+.metric_container {
+  background: white;
+  padding: 1rem;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: $spacing-12;
+  
+  & h3 {
+    @include type-style('heading-03');
+    font-weight: bold;
+    font-size: 1.75rem;
+  }
+
+  & p {
+    @include type-style('body-01');
+    color: #808080;
+  }
+
+  @media screen and (max-width: 400px) {
+    flex-wrap: wrap;
+    column-gap: $spacing-08;
+    row-gap: $spacing-04;
+   }
+}
+
+.staff_title {
+  @include type-style('heading-03');
+  font-weight: bold;
+  font-size: 1.75rem;
+}
+
+.staff_subTitle {
+  @include type-style('body-01');
+}
+
+.emptyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-08;
+  height: 70vh;
+  text-align: center;
+}
+
+.emptyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-02;
+}
+
+.emptyTitle {
+  @include type-style("heading-03");
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.emptyText {
+  @include type-style("body-01");
+  font-size: 14px;
+}
+

@@ -1,0 +1,56 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/layout';
+@use '@carbon/colors';
+
+.app_card_container {
+  cursor: pointer;
+  background: white;
+  padding: $spacing-05;
+  border: 1px solid #EBEBEB;
+  margin: 0;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-04;
+  text-decoration: none;
+  color: #333333;
+
+  & span {
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: #808080;
+  }
+
+  & h3 {
+    @include type-style('heading-compact-02');
+    margin-bottom: 0.2rem;
+  }
+
+  & p {
+    @include type-style('body-01');
+  }
+
+  &:focus {
+    outline-color: colors.$blue-50;
+  }
+}
+
+.app_card_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app_card_tag {
+  min-width: fit-content;
+  background-color: #E0FFFF;
+  padding: 0.2rem 0.5rem;
+  border-radius: 24px;
+  border: 1px solid #008080;
+  color: #008080;
+  @include type-style('body-01');
+  font-weight: bold;
+  font-size: 12px;
+}

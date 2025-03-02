@@ -1,0 +1,13 @@
+@use "@carbon/react/scss/spacing" as *;
+@use "@carbon/react/scss/type" as *;
+@use "@carbon/layout";
+@use "@carbon/colors";
+@use "@carbon/themes";
+
+.notification svg{
+   fill: white !important; 
+}
+
+.line {
+    border-bottom: 1px dashed #CCCCCC;
+}

@@ -1,0 +1,28 @@
+@use "@carbon/react/scss/spacing" as *;
+@use "@carbon/react/scss/type" as *;
+@use "@carbon/layout";
+@use "@carbon/colors";
+@use "@carbon/themes";
+
+.tile_padding {
+   padding: 0px;
+   min-height: fit-content;
+}
+.container {
+   display: flex;
+   align-items: center;
+   gap: $spacing-04;
+   background-color: white;
+   padding: $spacing-06;
+}
+
+.title {
+   @include type-style("heading-03");
+   font-weight: bold;
+   font-size: 16px;
+}
+
+.text {
+   @include type-style("body-01");
+   font-size: 14px;
+}
