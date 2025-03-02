@@ -1,14 +1,7 @@
 "use client"
 
 import { DocumentDownload, DocumentView } from "@carbon/icons-react"
-import {
-   Dropdown,
-   InlineLoading,
-   InlineNotification,
-   Modal,
-   MultiSelect,
-   TextInput,
-} from "@carbon/react"
+import { Dropdown, InlineLoading, InlineNotification, Modal } from "@carbon/react"
 import { useMutation } from "@tanstack/react-query"
 
 import React, { useEffect, useState } from "react"
@@ -16,7 +9,7 @@ import React, { useEffect, useState } from "react"
 import Image from "next/image"
 import { useParams } from "next/navigation"
 
-import organisationApi, { organisationComplianceType } from "@/axios/organisation.api"
+import organisationApi from "@/axios/organisation.api"
 
 import { downloadImage } from "@/helpers/utils"
 
@@ -58,11 +51,6 @@ function UserFile({
    const [reason, setReason] = useState<string | undefined>("")
    const { id } = useParams()
 
-   if(item) {
-   const { documentName, documentFile } = item
-   }
-
-
    const payload = {
       userId: id.toString(),
       documentType: docType,
@@ -76,7 +64,7 @@ function UserFile({
       isPending,
    } = useMutation({
       mutationFn: organisationApi.organisationCompliance,
-      onSuccess: ({ data }) => {},
+      onSuccess: ({}) => {},
       onError: (error: any) => {
          setMessage(error.response.data.message || "An error occurred")
       },
@@ -85,7 +73,6 @@ function UserFile({
    const {
       mutate: _viewDoc,
       isError: viewErr,
-      isSuccess: viewSuccess,
       isPending: viewLoading,
    } = useMutation({
       mutationFn: organisationApi.organisationViewComplianceDoc,
@@ -100,7 +87,7 @@ function UserFile({
    const DenyModal = () => {
       return (
          <Modal
-            onRequestClose={(e) => {
+            onRequestClose={() => {
                setOpenDenyModal(false)
             }}
             modalHeading="Reason For Denial"
@@ -146,7 +133,7 @@ function UserFile({
    const ViewDocModal = () => {
       return (
          <Modal
-            onRequestClose={(e) => {
+            onRequestClose={() => {
                setOpenViewDocModal(false)
             }}
             modalHeading={`${docType}`}
@@ -160,11 +147,9 @@ function UserFile({
    }
 
    useEffect(() => {
-
       _viewDoc({ fileKey: item?.documentFile })
    }, [item?.documentFile])
 
-   console.log(userData, "user ddee", doctString, "file")
    if (viewLoading) {
       return <InlineLoading className={style.container_bg} />
    }

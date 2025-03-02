@@ -1,7 +1,5 @@
 "use client"
 
-import { authSelector } from "@/redux/features/auth.slice"
-import { useAppSelector } from "@/redux/hooks"
 import { Column, Grid, InlineLoading, InlineNotification } from "@carbon/react"
 import { useQuery } from "@tanstack/react-query"
 
@@ -17,19 +15,14 @@ import style from "./tabs.module.scss"
 
 function ComplianceTab() {
    const [token, setToken] = useState("")
-   // const [userDoc, setUserDoc] = useState<Document>()
-   const user = useAppSelector(authSelector).user
-
-   const kyc = user?.kycComplete
    const searchParams = useSearchParams()
 
    const { data, isPending, error } = useQuery({
       queryKey: ["fetchFile"],
       queryFn: () =>
          organisationApi.organisationGetComplianceDoc(token).then((res) => res.data.data),
+      retry: 2,
    })
-
-   console.log(data, "data fetched")
 
    useEffect(() => {
       const userToken = searchParams.get("u")
@@ -40,6 +33,18 @@ function ComplianceTab() {
    if (isPending) {
       return <InlineLoading />
    }
+
+   if (error) {
+      return (
+         <InlineNotification
+            title={"An error occured"}
+            kind="error"
+            className={style.notification}
+            hideCloseButton
+         />
+      )
+   }
+
    return (
       <>
          <Grid style={{ paddingTop: "1.5rem" }}>
